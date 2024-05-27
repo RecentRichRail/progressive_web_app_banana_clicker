@@ -1,0 +1,8 @@
+Flask
+gunicorn
+requests
+pyjwt
+cryptography
+load_dotenv
+flask_sqlalchemy
+pymysql
