@@ -1,51 +1,45 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, redirect, request
 import requests
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+from resources.banana import bp as BananaBlueprint
+
 load_dotenv()
 
-HANKO_API_URL = os.environ.get('HANKO_API_URL')
+app = Flask(__name__, static_url_path='/internal/banana/static')
 
-app = Flask(__name__)
+app.short_session_cookie_name = os.environ.get('short_session_cookie_name')
+host_port = os.environ.get('host_port')
+app.allow_logging = os.environ.get('allow_logging')
+require_hanko_login = os.environ.get('require_hanko_login')
+app.authentication_server = os.environ.get('authentication_server')
+app.mysql_database_api = os.environ.get('mysql_database_api')
 
-# Middleware to validate JWT
 @app.before_request
 def validate_jwt():
-    # Exclude validation for certain routes
-    if request.path == '/external' or request.path == '/login' or request.path.startswith('/static'):
+    if request.path.startswith('/external') or request.path.startswith('/static'):
         return
 
     print("Getting JWT")
-    jwt_token = request.cookies.get("hanko")
+    jwt_token = request.cookies.get(app.short_session_cookie_name)
 
     if not jwt_token:
         print("No JWT found")
         redirect_url = request.url
-        return redirect(f"/login?redirect={redirect_url}")
+        return redirect(f"/external/login?redirect={redirect_url}")
 
-    # Forward JWT to Script B for verification
     print("Awaiting response from server.")
-    response = requests.post("http://127.0.0.1:2568/apiv1/verify_user_jwt", json={"jwt": jwt_token})
+    response = requests.post(f"http://{app.authentication_server}/apiv1/auth/verify_user_jwt", json={"jwt": jwt_token, "request_url": request.url, "request_ip_source": request.headers.get('X-Forwarded-For', request.remote_addr)})
     print("Server responded")
     verification_result = response.json()
 
-    # Handle verification result
     if not verification_result["valid"]:
         print("JWT not valid")
         redirect_url = request.url
-        return redirect(f"/login?redirect={redirect_url}")
+        return redirect(f"/external/login?redirect={redirect_url}")
 
-@app.route('/login')
-def login():
-    redirect_url = request.args.get('redirect', default='/')
-    # Render login page
-    return render_template('login.html', API_URL=HANKO_API_URL, redirect=redirect_url)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+app.register_blueprint(BananaBlueprint)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=host_port, debug=True)
