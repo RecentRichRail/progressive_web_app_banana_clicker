@@ -1,7 +1,7 @@
 {
-    "name": "Cookie Clicker",
-    "short_name": "SP Clicker",
-    "start_url": "/",
+    "name": "Bannana Clicker",
+    "short_name": "Banana Clicker",
+    "start_url": "/internal/banana/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
