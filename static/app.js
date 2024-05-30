@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     getInitialUserStats();
 
     // Send the unsent count to the server every 5 seconds
-    setInterval(sendUnsentCount, 5000);
+    setInterval(sendUnsentCount, 2000);
 
     // Increment the unsent count when the button is clicked
     clickButton.addEventListener('click', incrementUnsentCount);
