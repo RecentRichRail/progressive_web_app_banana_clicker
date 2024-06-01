@@ -9,14 +9,31 @@
     <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='images/apple-touch-icon-precomposed.png') }}">
+    <meta name="theme-color" content="#009229">
 </head>
 <body>
-    <div class="container">
-        <h1>Banana Clicker</h1>
-        <button id="clickButton">
-            <img src="static/images/banana-button.png" alt="Click me!" style="width: 100px; outline: none;">
-        </button>
-        <p>Count: <span id="count">0</span></p>
+    <div class="top-bar">
+        <a href="/internal/search" style="padding: 25px;">
+            <img src="{{ url_for('static', filename='images/SpicerHomeS.png') }}" alt="Logo" style="width: 60px;">
+        </a>
+        <div style="display: flex; align-items: center;">
+            <p style="margin-right: 20px;">Bananas: <span id="count">0</span></p>
+            <div class="hamburger-menu">&#9776;</div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <!-- <h1>Banana Clicker</h1> -->
+            <button id="clickButton">
+                <img src="static/images/banana-button.png" alt="Click me!" style="width: 100px; outline: none;">
+            </button>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <a href="#" class="bottom-bar-item">Home</a>
+        <a href="#" class="bottom-bar-item">Undefined 1</a>
+        <a href="#" class="bottom-bar-item">Undefined 2</a>
+        <a href="#" class="bottom-bar-item">Undefined 3</a>
     </div>
     <script>
         // Pass the user ID to the JavaScript code

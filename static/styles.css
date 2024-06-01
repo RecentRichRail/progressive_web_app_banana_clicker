@@ -1,5 +1,12 @@
 body {
     font-family: Arial, sans-serif;
+    height: 100vh;
+    background-color: #00a9bf;
+    overflow: hidden; /* Prevent scrolling */
+    margin: 0; /* Ensure no margin for body */
+}
+/* body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,8 +14,7 @@ body {
     background-color: #f0f0f0;
     overflow: hidden; /* Prevent scrolling */
     margin: 0; /* Ensure no margin for body */
-}
-
+} */
 html {
     overflow: hidden; /* Prevent scrolling */
     height: 100%; /* Ensure html takes full height */
@@ -17,10 +23,10 @@ html {
 
 .container {
     text-align: center;
-    background-color: white;
+    background-color: #00a9bf;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* border-radius: 10px; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 button {
@@ -28,4 +34,42 @@ button {
     font-size: 16px;
     margin-top: 20px;
     touch-action: manipulation; /* Prevent zoom on button tap */
+    background-color: transparent; /* Make the button background transparent */
+    border: none; /* Remove the button border */
+}
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* Subtract top bar height */
+}
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #009229;
+    height: 60px; /* Set a height for the top bar */
+}
+
+.hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+}
+.bottom-bar {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #009229;
+    padding: 10px 0;
+}
+
+.bottom-bar-item {
+    text-decoration: none;
+    color: black;
+    border: 1px solid #000; /* Add a border */
+    padding: 10px; /* Add some padding */
+    border-radius: 5px; /* Optional: round the corners */
 }
