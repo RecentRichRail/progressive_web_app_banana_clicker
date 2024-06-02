@@ -62,4 +62,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Increment the unsent count when the button is clicked
     clickButton.addEventListener('click', incrementUnsentCount);
+
+    document.getElementById('clickButton').addEventListener('click', function() {
+        // Create a new banana image
+        var banana = document.createElement('img');
+        banana.src = 'static/images/banana.png'; // Set the source to your banana image
+        banana.className = 'fallingBanana'; // Apply the falling animation
+        banana.style.width = '50px'; // Set the width of the banana image
+
+        // Position the banana image higher on the screen
+        banana.style.top = '-20px'; // Adjust as needed
+
+        // Randomly position the banana image horizontally
+        banana.style.left = Math.random() * document.querySelector('.main-content').offsetWidth + 'px';
+
+        // Add the banana image to the .main-content div
+        document.querySelector('.main-content').appendChild(banana);
+
+        // Remove the banana image when the animation is done
+        banana.addEventListener('animationend', function() {
+            document.querySelector('.main-content').removeChild(banana);
+        });
+    });
 });
